@@ -1,0 +1,101 @@
+{
+  "parser": "babel-eslint",
+  // "extends": [ "react-app", "plugin:prettier/recommended" ],
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  // "plugins": [ "prettier" ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "semi": [
+      "error",
+      "never"
+    ],
+    "indent": ["error", 2],
+    "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "one-var": [
+      "error",
+      "never"
+    ],
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "strict"
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "comma-spacing": [
+      "error",
+      {
+        "after": true,
+        "before": false
+      }
+    ],
+    "padded-blocks": [
+      "error",
+      "never"
+    ],
+    "no-extra-semi": "error",
+    "keyword-spacing": [
+      "error",
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "no-multi-spaces": "error",
+    "no-trailing-spaces": "error",
+    "space-before-blocks": "error",
+    "no-duplicate-imports": "error",
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxBOF": 1
+      }
+    ],
+    "react/jsx-max-props-per-line": [
+      2,
+      {
+        "maximum": 1
+      }
+    ],
+    "no-unused-vars": "warn",
+    "react/jsx-first-prop-new-line": [
+      2,
+      "multiline"
+    ],
+    "react/prop-types": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-handler-names": "off"
+  }
+}

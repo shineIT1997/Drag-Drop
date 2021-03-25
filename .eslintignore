@@ -1,0 +1,8 @@
+/node_modules
+/build
+/config
+/public
+/webpack
+/scripts
+/package*.json
+/**/*.test.js
