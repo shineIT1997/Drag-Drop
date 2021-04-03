@@ -5,12 +5,11 @@
 *@Editor : Visual Studio Code
 *@summary : the config of webpack on development-env
 */
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 const path = require('path')
 const openBrowser = require('react-dev-utils/openBrowser')
 const commonConfig = require('./common.config')
-const getHttpsConfig = require('../config/getHttpsConfig');
 
 
 const APP_PORT = process.env.REACT_APP_PORT || 4000
@@ -20,7 +19,7 @@ module.exports = {
   ...commonConfig,
   
   // Recommended by https://webpack.js.org/configuration/mode/
-  mode: 'development',
+  mode: 'production',
 
   // Recommended by https://webpack.js.org/configuration/devtool/
   devtool: 'eval-source-map',

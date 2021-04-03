@@ -8,9 +8,11 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const resovlePaths = require('../config/paths.js')
+const paths = require('../config/paths.js')
+const getClientEnvironment = require('../config/env')
 
-console.log(`resovlePaths.appHtml:`, resovlePaths.appRootHtml)
+const publicUrl = ''
+const env = getClientEnvironment(publicUrl)
 
 module.exports = {
   module: {
@@ -64,7 +66,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets:  [ '@babel/preset-react' ] ,
+          presets:  [ '@babel/preset-react', ["@babel/preset-env", {
+            "targets": {
+              "browsers": [ "last 2 chrome versions" ]
+            }
+          }] ] ,
           plugins: [ '@babel/plugin-transform-runtime', '@babel/plugin-proposal-class-properties' ]
         }
       },
@@ -81,14 +87,33 @@ module.exports = {
         ]
       },
 
+      {
+        exclude: [
+          /\.html$/,
+          /\.(js|jsx)$/,
+          /\.css$/,
+          /\.scss$/,
+          /\.json$/
+          // /\.bmp$/,
+          // /\.gif$/,
+          // /\.jpe?g$/,
+          // /\.png$/,
+        ],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      }
 
 
     ],
   },
 
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     template: 'public/index.html',
-  //   })
-  // ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.appHtml,
+    }),
+  ],
 }

@@ -1,6 +1,8 @@
 {
   "parser": "babel-eslint",
-  // "extends": [ "react-app", "plugin:prettier/recommended" ],
+  "plugins": [
+    "react"
+  ],
   "extends": [
     "standard",
     "standard-react"
@@ -20,7 +22,12 @@
       "error",
       "never"
     ],
-    "indent": ["error", 2],
+    "indent": [
+      "error",
+      2
+    ],
+    "react/jsx-uses-vars": "error",
+    "react/jsx-uses-react": "error",
     "react/jsx-indent": "off",
     "react/jsx-indent-props": "off",
     "quotes": [
