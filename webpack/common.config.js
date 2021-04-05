@@ -7,12 +7,6 @@
 */
 
 const path = require('path')
-const getClientEnvironment = require('../config/env')
-
-const publicUrl = ''
-const env = getClientEnvironment(publicUrl)
-
-console.log('env:', env)
 
 module.exports = {
   module: {
@@ -95,6 +89,14 @@ module.exports = {
       }
 
     ]
+  },
+  resolve: {
+    alias: {
+      _src: path.resolve(__dirname, '../src'),
+      _api: path.resolve(__dirname, '../src/api'),
+      _utils: path.resolve(__dirname, '../src/utils'),
+      _components: path.resolve(__dirname, '../src/components')
+    }
   }
 
 }

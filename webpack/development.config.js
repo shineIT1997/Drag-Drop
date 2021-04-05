@@ -7,12 +7,18 @@
 */
 process.env.NODE_ENV = 'development'
 
+const webpack = require('webpack')
 const paths = require('../config/paths')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const openBrowser = require('react-dev-utils/openBrowser')
 const commonConfig = require('./common.config')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const getHttpsConfig = require('../config/getHttpsConfig')
 const { merge } = require('webpack-merge')
+const getClientEnvironment = require('../config/env')
+
+const publicUrl = ''
+const env = getClientEnvironment(publicUrl)
 
 const APP_PORT = process.env.REACT_APP_PORT || 4000
 
@@ -95,7 +101,16 @@ module.exports = merge(commonConfig, {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml
-    })
+    }),
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+    // This gives some necessary context to module not found errors, such as
+    // the requesting resource.s
+    // Makes some environment variables available to the JS code, for example:
+    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
+    // It is absolutely essential that NODE_ENV is set to production
+    // during a production build.
+    // Otherwise React will be compiled in the very slow development mode.
+    new webpack.DefinePlugin(env.stringified)
   ]
 
 }
