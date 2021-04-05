@@ -7,8 +7,6 @@
 */
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const paths = require('../config/paths.js')
 const getClientEnvironment = require('../config/env')
 
 const publicUrl = ''
@@ -97,12 +95,6 @@ module.exports = {
       }
 
     ]
-  },
+  }
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml
-    })
-  ]
 }

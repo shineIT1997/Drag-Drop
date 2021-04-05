@@ -7,8 +7,8 @@
 */
 process.env.NODE_ENV = 'development'
 
-const path = require('path')
 const paths = require('../config/paths')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const openBrowser = require('react-dev-utils/openBrowser')
 const commonConfig = require('./common.config')
 const getHttpsConfig = require('../config/getHttpsConfig')
@@ -89,6 +89,13 @@ module.exports = merge(commonConfig, {
 
     // Finally, your app's code:
     paths.appIndexJs
+  ],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.appHtml
+    })
   ]
 
 }

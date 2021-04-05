@@ -52,7 +52,7 @@ module.exports = merge(commonConfig, {
         .replace(/\\/g, '/')
   },
 
-  // plugin: [],
+  plugins: [],
 
   optimization: {
     minimize: true,
