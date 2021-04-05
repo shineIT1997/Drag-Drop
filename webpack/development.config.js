@@ -11,16 +11,15 @@ const path = require('path')
 const paths = require('../config/paths')
 const openBrowser = require('react-dev-utils/openBrowser')
 const commonConfig = require('./common.config')
-const getHttpsConfig = require('../config/getHttpsConfig');
+const getHttpsConfig = require('../config/getHttpsConfig')
+const { merge } = require('webpack-merge')
 
 const APP_PORT = process.env.REACT_APP_PORT || 4000
 
-const host = process.env.HOST || '0.0.0.0';
+const host = process.env.HOST || '0.0.0.0'
 
+module.exports = merge(commonConfig, {
 
-module.exports = {
-  ...commonConfig,
-  
   // Recommended by https://webpack.js.org/configuration/mode/
   mode: 'development',
 
@@ -60,7 +59,7 @@ module.exports = {
 
   output: {
     // The build folder.
-    path:  undefined,
+    path: undefined,
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
     // There will be one main bundle, and one file per asynchronous chunk.
@@ -72,7 +71,7 @@ module.exports = {
     // webpack uses `publicPath` to determine where the app is being served from.
     // It requires a trailing slash, or the file assets will get an incorrect path.
     // We inferred the "public path" (such as / or /my-project) from homepage.
-    publicPath: paths.publicUrlOrPath,
+    publicPath: paths.publicUrlOrPath
     // Point sourcemap entries to original disk location (format as URL on Windows)
   },
 
@@ -89,8 +88,8 @@ module.exports = {
     require.resolve('react-error-overlay'),
 
     // Finally, your app's code:
-    path.resolve(__dirname ,'../src/index.js' )
-  ],
+    paths.appIndexJs
+  ]
 
 }
-
+)

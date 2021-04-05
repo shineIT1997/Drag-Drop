@@ -7,12 +7,14 @@
 */
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('../config/paths.js')
 const getClientEnvironment = require('../config/env')
 
 const publicUrl = ''
 const env = getClientEnvironment(publicUrl)
+
+console.log('env:', env)
 
 module.exports = {
   module: {
@@ -66,25 +68,13 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets:  [ '@babel/preset-react', ["@babel/preset-env", {
-            "targets": {
-              "browsers": [ "last 2 chrome versions" ]
+          presets: [ '@babel/preset-react', [ '@babel/preset-env', {
+            targets: {
+              browsers: [ 'last 2 chrome versions' ]
             }
-          }] ] ,
+          } ] ],
           plugins: [ '@babel/plugin-transform-runtime', '@babel/plugin-proposal-class-properties' ]
         }
-      },
-
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: 'svg-url-loader',
-            options: {
-              limit: 10000
-            }
-          }
-        ]
       },
 
       {
@@ -106,14 +96,13 @@ module.exports = {
         }
       }
 
-
-    ],
+    ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml,
-    }),
-  ],
+      template: paths.appHtml
+    })
+  ]
 }
