@@ -52,7 +52,7 @@ module.exports = merge(commonConfig, {
     },
     proxy: {
       '/api': {
-        target: process.env.API_PROXY || 'https://api.onib.link',
+        target: process.env.API_PROXY,
         secure: false,
         changeOrigin: true
       }

@@ -7,7 +7,14 @@
 */
 
 import app from '_store/reducers/app'
+import reducersOfModulus from '../../modulus/**/reducer.js'
 
 export default {
+  ...reducersOfModulus.reduce((reducers, moduleReducer) => {
+    return ({
+      ...reducers,
+      [moduleReducer.default.name]: moduleReducer.default.reducer
+    })
+  }, {}),
   app
 }

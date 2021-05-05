@@ -1,23 +1,41 @@
-import React, { useEffect } from 'react'
-import { Provider } from 'react-redux'
+import React, { useMemo } from 'react'
+import { connect, Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import configureAppStore from '_store'
+
 import Main from '_layout/main'
+import AppLoading from '_components/loading/appLoading'
+
+import configureAppStore from '_store'
 
 const store = configureAppStore()
 
-const App = props => {
+const App = (props) => {
+  const renderLoading = useMemo(() => props.loading && <AppLoading/>, [ props.loading ])
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <div
-          id="app"
-          className="app">
-          <Main/>
-        </div>
-      </BrowserRouter>
-    </Provider>
+    <div
+      id="app"
+      className="app">
+      <Main />
+
+      {renderLoading}
+    </div>
   )
 }
 
-export default App
+const mapStateToProps = state => ({
+  loading: state.app.loading
+})
+
+const mapDispatchToProps = null
+
+const AppWithStore = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+export default () =>
+  <Provider store={store}>
+    <BrowserRouter>
+      <AppWithStore/>
+    </BrowserRouter>
+  </Provider>

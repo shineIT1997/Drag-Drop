@@ -1,9 +1,18 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { createAction } from '@reduxjs/toolkit'
 
-const increment = createAction('app/increment')
-const invalid = createAction('increment')
+const increment = createAction('app/increment', (value) => {
+  return ({
+    payload: value
+  })
+})
+
+const toggleLoading = createAction('app/loading', (status) => {
+  return ({
+    payload: status
+  })
+})
 
 export {
   increment,
-  invalid
+  toggleLoading
 }

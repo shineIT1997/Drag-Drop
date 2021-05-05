@@ -21,7 +21,9 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: [
+          // not support alidas import
           { loader: 'webpack-glob-loader' },
+
           {
             loader: 'eslint-loader',
             options: {
