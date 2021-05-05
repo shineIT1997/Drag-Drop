@@ -20,10 +20,15 @@ module.exports = {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          configFile: path.join(__dirname, '../.eslintrc')
-        }
+        use: [
+          { loader: 'webpack-glob-loader' },
+          {
+            loader: 'eslint-loader',
+            options: {
+              configFile: path.join(__dirname, '../.eslintrc')
+            }
+          }
+        ]
       },
 
       {
@@ -58,15 +63,19 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [ '@babel/preset-react', [ '@babel/preset-env', {
-            targets: {
-              browsers: [ 'last 2 chrome versions' ]
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [ '@babel/preset-react', [ '@babel/preset-env', {
+                targets: {
+                  browsers: [ 'last 2 chrome versions' ]
+                }
+              } ] ],
+              plugins: [ '@babel/plugin-transform-runtime', '@babel/plugin-proposal-class-properties' ]
             }
-          } ] ],
-          plugins: [ '@babel/plugin-transform-runtime', '@babel/plugin-proposal-class-properties' ]
-        }
+          }
+        ]
       },
 
       {
@@ -93,8 +102,13 @@ module.exports = {
   resolve: {
     alias: {
       _src: path.resolve(__dirname, '../src'),
-      _api: path.resolve(__dirname, '../src/api'),
+      _static: path.resolve(__dirname, '../public/static'),
+      _store: path.resolve(__dirname, '../src/store'),
+      _modulus: path.resolve(__dirname, '../src/modulus'),
+      _layout: path.resolve(__dirname, '../src/layout'),
+      _apis: path.resolve(__dirname, '../src/api'),
       _utils: path.resolve(__dirname, '../src/utils'),
+      _router: path.resolve(__dirname, '../src/router'),
       _components: path.resolve(__dirname, '../src/components')
     }
   }
