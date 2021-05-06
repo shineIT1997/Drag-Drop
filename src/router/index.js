@@ -6,15 +6,17 @@
 *@summary : config router, return a array of all router, notFound-route will be the end
 */
 import NotFound from '_modulus/core/components/404'
-import routesOfModulus from '../modulus/**/routes.js'
+import routesFromModulus from '../modulus/**/routes.js'
+
+const ModulusRouter = [ ...routesFromModulus.reduce((router, moduleRouter) => {
+  return [
+    ...router,
+    ...moduleRouter.default
+  ]
+}, []) ]
 
 export default [
-  ...routesOfModulus.reduce((routes, module) => {
-    return [
-      ...routes,
-      ...module.default
-    ]
-  }, []),
+  ...ModulusRouter,
 
   // last route handle 404 error
   {

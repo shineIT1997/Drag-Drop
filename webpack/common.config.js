@@ -109,9 +109,11 @@ module.exports = {
       _modulus: path.resolve(__dirname, '../src/modulus'),
       _layout: path.resolve(__dirname, '../src/layout'),
       _apis: path.resolve(__dirname, '../src/api'),
+      _styles: path.resolve(__dirname, '../src/styles'),
       _utils: path.resolve(__dirname, '../src/utils'),
       _router: path.resolve(__dirname, '../src/router'),
-      _components: path.resolve(__dirname, '../src/components')
+      _components: path.resolve(__dirname, '../src/components'),
+      _constants: path.resolve(__dirname, '../src/constants')
     }
   }
 

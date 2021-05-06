@@ -7,22 +7,33 @@
 */
 
 import { configureStore } from '@reduxjs/toolkit'
-
-// We'll use redux-logger just as an example of adding another middleware
 import logger from 'redux-logger'
 
-// And use redux-batch as an example of adding enhancers
+// create batch dispatch
 import { reduxBatch } from '@manaflair/redux-batch'
+
 import rootReducer from '_store/reducers'
+
+/**
+ * We'll config middleware. which using on production and development
+ * @param {Function} getDefaultMiddleware
+ * @returns {Array}
+ */
+const getMiddleware = (getDefaultMiddleware) => {
+  const mid = []
+  if (process.env.NODE_ENV === 'development') {
+    mid.push(logger)
+  }
+  return getDefaultMiddleware().concat(mid)
+}
 
 export default function configureAppStore (preloadedState) {
   const store = configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware().concat(loggerMiddleware),
-    preloadedState
-    // enhancers: [ monitorReducersEnhancer ]
+    middleware: getMiddleware,
+    preloadedState,
+    enhancers: [ reduxBatch ]
   })
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
@@ -31,4 +42,10 @@ export default function configureAppStore (preloadedState) {
 
   return store
 }
+
+// The store wil be created with these options:
+// - The slice reducers were automatically passed to combineReducers()
+// - redux-thunk and redux-logger were added as middleware
+// - The Redux DevTools Extension is disabled for production
+// - The middleware, batch, and devtools enhancers were composed together
 

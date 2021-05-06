@@ -12,8 +12,8 @@
       "_components/*": ["src/components/*"],
       "_router/*": ["src/router/*"],
       "_layout/*": ["src/layout/*"],
-      // "_module/*": ["src/module/*"],
-      // "_constants/*": ["src/constants/*"],
+      "_constants/*": ["src/constants/*"],
+      "_styles/*": ["src/styles/*"],
     }
   },
   "exclude": ["node_modules"]

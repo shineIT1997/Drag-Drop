@@ -5,7 +5,8 @@
   ],
   "extends": [
     "standard",
-    "standard-react"
+    "standard-react",
+    "eslint:recommended"
   ],
   // "plugins": [ "prettier" ],
   "parserOptions": {
@@ -94,6 +95,7 @@
         "maximum": 1
       }
     ],
+    "no-prototype-builtins": "off",
     "no-unused-vars": "warn",
     "react/jsx-first-prop-new-line": [
       2,

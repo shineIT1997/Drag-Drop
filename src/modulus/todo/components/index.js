@@ -1,36 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
-// import { unwrapResult } from '@reduxjs/toolkit'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { increment, toggleLoading } from '_src/store/actions/app'
 import { fetchUserById } from '_modulus/todo/actions/fetchUserById'
+import notify from '_src/utils/notify'
 
 const Todo = props => {
-  const { toggleLoading, fetchUserById } = props
-
-  const handleLoadUser = async () => {
-    try {
-      toggleLoading(true)
-      await fetchUserById()
-    } catch (error) {
-      console.log('error.message : ', error.message)
-    } finally {
-      toggleLoading(false)
-    }
-  }
+  const dispatch = useDispatch()
 
   useEffect(() => {
     handleLoadUser()
     return () => {
       props.fetchUserById.abort()
     }
-  }, [ ])
+  }, [])
+
+  const handleIncrement = () => {
+    dispatch(increment(2))
+    notify({
+      type: 'success',
+      message: 'test'
+    })
+  }
+  const handleLoadUser = useCallback(
+    async () => {
+      try {
+        dispatch(toggleLoading(true))
+        await dispatch(fetchUserById())
+      } catch (error) {
+        console.log('error.message : ', error.message)
+      } finally {
+        dispatch(toggleLoading(false))
+      }
+    },
+    [ dispatch ]
+  )
 
   return (
     <div>
-      {props.count.app.value} todo
-      <button onClick={() => props.increment(2)}>Click me</button>
+      {props.value } todo
+      <button onClick={handleIncrement}>Notify</button>
       <button onClick={handleLoadUser}>Get user</button>
+
+      <pre>{JSON.stringify(props.todo.data)}</pre>
     </div>
   )
 }
@@ -41,11 +53,8 @@ Todo.propTypes = {
 
 export default connect(
   state => ({
-    count: state
+    value: state.app.value,
+    todo: state.todo.test
   }),
-  dispatch => ({
-    increment: (value) => dispatch(increment(value)),
-    fetchUserById: () => dispatch(fetchUserById()),
-    toggleLoading: (status) => dispatch(toggleLoading(status))
-  })
+  null
 )(Todo)

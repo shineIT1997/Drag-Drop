@@ -1,0 +1,123 @@
+.snackbar-container {
+  text-align: center;
+  width: 320px;
+  max-width: 100vw;
+  height: fit-content;
+  margin-right: 16px;
+
+  .snackbar-item {
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 48px;
+    box-shadow: 0px 0px 10px rgba(112, 159, 214, 0.22);
+    background-color: #fff;
+    color: #27AE60;
+    display: flex;
+    cursor: default;
+
+    &:not(:first-child){
+      display: none;
+    }
+
+    .snackbar-body {
+      display: block;
+      padding: 0px;
+    }
+
+    .snackbar__title {
+      display: flex;
+      align-items: center;
+    }
+
+    .snackbar__content {
+      font-size: 14px;
+      padding: 0;
+      text-align: left;
+      font-family: 'Open Sans';
+    }
+    
+
+    .snackbar__type {
+      text-transform: capitalize;
+      font-size: 18px;
+      margin: 0px 8px;
+    }
+
+    &.error {
+      .snackbar__type {
+        color: #EB0000;
+      }
+    }
+
+    &.info {
+      .snackbar__type {
+        color: blue;
+      }
+    }
+
+    &.warn {
+      .snackbar__type {
+        color: #F5B100;
+      }
+    }
+
+    &.success {
+      .snackbar__type {
+        color: #27AE60;
+      }
+    }
+
+    .snackbar__message {
+      color: #222
+    }
+
+    img {
+      height: 24px;
+      width: 24px;
+    }
+
+    .Toastify__close-button {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > svg {
+        fill: #CECECE ;
+      }
+
+      &:hover {
+        background-color: #e8e7e7 ;
+        & > svg {
+          fill: #363636 ; 
+        }
+      }
+
+    }
+
+    .Toastify__progress-bar {
+      height: 3px;
+
+      &--error {
+        background: #EB0000;
+      }
+
+      &--success {
+        background: #27AE60;
+      }
+
+      &--warning {
+        background: #F5B100;
+      }
+
+      &--info {
+        background: blue;
+      }
+    }
+  }
+}

@@ -3,16 +3,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const fetchUserById = createAsyncThunk(
-  'api/todos/fetchById',
+  'api/todos/list/fetchById',
   async (_, { signal, getState, requestId }) => {
-    const { currentRequestId, status, data } = getState().todo
+    const { currentRequestId, status, data } = getState()?.todo?.test
 
     if (status !== 'pending' || requestId !== currentRequestId) {
-      return []
+      return
     }
 
     if (status === 'fulfilled') {
-      return [ ...data ]
+      return data
     }
 
     const source = axios.CancelToken.source()

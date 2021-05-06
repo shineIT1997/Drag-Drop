@@ -7,14 +7,15 @@
 */
 
 import app from '_store/reducers/app'
-import reducersOfModulus from '../../modulus/**/reducer.js'
+import reducersOfModulus from '../../modulus/**/reducers'
+
+const getModulusReducer = () => ({
+  ...reducersOfModulus.reduce((reducers, moduleReducer) => {
+    return { ...reducers, ...moduleReducer.default }
+  }, {})
+})
 
 export default {
-  ...reducersOfModulus.reduce((reducers, moduleReducer) => {
-    return ({
-      ...reducers,
-      [moduleReducer.default.name]: moduleReducer.default.reducer
-    })
-  }, {}),
+  ...getModulusReducer(),
   app
 }
