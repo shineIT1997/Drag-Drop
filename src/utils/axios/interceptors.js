@@ -6,7 +6,7 @@
 *@summary : interceptors config
 */
 import axios from 'axios'
-import { handleRefreshToken } from './auth'
+import { handleRefreshToken } from './auth-interceptor'
 
 /** @todo :  */
 
