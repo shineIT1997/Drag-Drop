@@ -1,3 +1,10 @@
+/**
+*@file : auth.js
+*@author : Thanh Dat / dat.dinh@dinovative.com
+*@date : 18:33:56 | Friday, May 07, 2021
+*@Editor : Visual Studio Code
+*@summary : axios auth-interceptor
+*/
 import axios from 'axios'
 import store from '_store'
 import {
