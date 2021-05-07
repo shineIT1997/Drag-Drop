@@ -4,6 +4,7 @@ import { connect, useDispatch } from 'react-redux'
 import { increment, toggleLoading } from '_src/store/actions/app'
 import { fetchUserById } from '_modulus/todo/actions/fetchUserById'
 import notify from '_src/utils/notify'
+import { cancelApis } from '_src/utils/axios'
 
 const Todo = props => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const Todo = props => {
   useEffect(() => {
     handleLoadUser()
     return () => {
-      props.fetchUserById.abort()
+      cancelApis(fetchUserById)
     }
   }, [])
 
@@ -41,14 +42,14 @@ const Todo = props => {
       {props.value } todo
       <button onClick={handleIncrement}>Notify</button>
       <button onClick={handleLoadUser}>Get user</button>
-
       <pre>{JSON.stringify(props.todo.data)}</pre>
     </div>
   )
 }
 
 Todo.propTypes = {
-  fetchUserById: PropTypes.func
+  value: PropTypes.number,
+  todo: PropTypes.object
 }
 
 export default connect(

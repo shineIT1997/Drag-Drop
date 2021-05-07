@@ -6,15 +6,12 @@ import { BrowserRouter } from 'react-router-dom'
 import Main from '_layout/main'
 import AppLoading from '_src/components/Loading/App'
 
+import store from '_store'
 import 'react-toastify/dist/ReactToastify.css'
 // minified version is also included
 // import 'react-toastify/dist/ReactToastify.min.css';
 
 import '_styles/notify.scss'
-
-import configureAppStore from '_store'
-
-const store = configureAppStore()
 
 const App = (props) => {
   const renderLoading = useMemo(() => props.loading && <AppLoading/>, [ props.loading ])

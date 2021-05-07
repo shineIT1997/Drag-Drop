@@ -7,6 +7,7 @@
 */
 
 import app from '_store/reducers/app'
+import auth from '_store/reducers/auth'
 import reducersOfModulus from '../../modulus/**/reducers'
 
 const getModulusReducer = () => ({
@@ -17,5 +18,6 @@ const getModulusReducer = () => ({
 
 export default {
   ...getModulusReducer(),
-  app
+  app,
+  auth
 }

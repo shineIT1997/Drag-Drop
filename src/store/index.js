@@ -27,7 +27,7 @@ const getMiddleware = (getDefaultMiddleware) => {
   return getDefaultMiddleware().concat(mid)
 }
 
-export default function configureAppStore (preloadedState) {
+const configureAppStore = (preloadedState) => {
   const store = configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',
@@ -42,6 +42,8 @@ export default function configureAppStore (preloadedState) {
 
   return store
 }
+
+export default configureAppStore()
 
 // The store wil be created with these options:
 // - The slice reducers were automatically passed to combineReducers()
