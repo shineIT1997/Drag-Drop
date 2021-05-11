@@ -43,9 +43,8 @@ const todoReducer = createReducer(initialState, (builder) => {
    * filter and add all pending action API
    */
   builder.addMatcher(isPendingAction, (state, action) => {
-    if (state.status === IDLE) {
-      state.status = PENDING
-      state.currentRequestId = action.meta.requestId
+    if (state.status === IDLE || state.status === REJECTED) {
+      return { ...state, ...action.payload, status: PENDING, currentRequestId: action.meta.requestId }
     }
   })
 
@@ -55,9 +54,7 @@ const todoReducer = createReducer(initialState, (builder) => {
   builder.addMatcher(isFulfilledAction, (state, action) => {
     const { requestId } = action.meta
     if (state.status === PENDING && state.currentRequestId === requestId) {
-      state.status = FULFILLED
-      state.data = [ ...action.payload ]
-      state.currentRequestId = undefined
+      return { ...state, ...action.payload, status: FULFILLED, currentRequestId: undefined }
     }
   })
 
@@ -67,9 +64,8 @@ const todoReducer = createReducer(initialState, (builder) => {
   builder.addMatcher(isRejectAction, (state, action) => {
     const { requestId } = action.meta
     if (state.status === PENDING && state.currentRequestId === requestId) {
-      state.status = REJECTED
-      state.error = action.error
-      state.currentRequestId = undefined
+      console.log('...action.payload:', action)
+      return { ...state, error: action.error, status: REJECTED, currentRequestId: undefined }
     }
   })
 })

@@ -17,13 +17,16 @@ export const fetchUserById = createAsyncThunk(
 
     const source = axios.CancelToken.source()
     signal.addEventListener('abort', () => {
+      console.log('abort:')
       source.cancel()
     })
+
+    console.log('source:', source)
 
     const response = await axios.get('todos', {
       cancelToken: source.token
     })
 
-    return response.data
+    return { data: response.data }
   }
 )

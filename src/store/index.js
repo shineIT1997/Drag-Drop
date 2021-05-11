@@ -22,7 +22,7 @@ import rootReducer from '_store/reducers'
 const getMiddleware = (getDefaultMiddleware) => {
   const mid = []
   if (process.env.NODE_ENV === 'development') {
-    mid.push(logger)
+    // mid.push(logger)
   }
   return getDefaultMiddleware().concat(mid)
 }
