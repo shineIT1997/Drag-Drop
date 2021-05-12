@@ -16,6 +16,8 @@ axios.interceptors.response.use((response) => {
   const { config, response: { status } } = error
   const originalRequest = config
 
+  console.log('error:', error)
+
   if (status === 401) {
     return handleRefreshToken(originalRequest)
   }
