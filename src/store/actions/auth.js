@@ -15,7 +15,7 @@ const login = createAsyncThunk(
       source.cancel()
     })
 
-    const { data } = await axios.get('auth/cloud-platform', {
+    const { data } = await axios.get('api', {
       cancelToken: source.token
     })
 
