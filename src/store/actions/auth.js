@@ -2,8 +2,8 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const login = createAsyncThunk(
-  'auth/api/login',
-  async (_, { signal, getState, requestId }) => {
+  'auth/login',
+  async (payload, { signal, getState, requestId }) => {
     const { currentRequestId, status } = getState()?.auth
 
     if (status !== 'pending' || requestId !== currentRequestId) {
@@ -15,7 +15,9 @@ const login = createAsyncThunk(
       source.cancel()
     })
 
-    const { data } = await axios.get('api', {
+    const { data } = await axios.post('/api/auth/register', {
+      payload: payload
+    }, {
       cancelToken: source.token
     })
 

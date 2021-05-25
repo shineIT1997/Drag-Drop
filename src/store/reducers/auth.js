@@ -29,7 +29,7 @@ function makeid (length) {
  * @param {Object} action
  */
 const isPendingAction = (action) => {
-  return action.type.startsWith('auth/api') && action.type.endsWith('/pending')
+  return action.type.startsWith('auth/') && action.type.endsWith('/pending')
 }
 
 /**
@@ -37,7 +37,7 @@ const isPendingAction = (action) => {
  * @param {Object} action
  */
 const isFulfilledAction = (action) => {
-  return action.type.startsWith('auth/api') && action.type.endsWith('/fulfilled')
+  return action.type.startsWith('auth/') && action.type.endsWith('/fulfilled')
 }
 
 /**
@@ -45,7 +45,7 @@ const isFulfilledAction = (action) => {
  * @param {Object} action
  */
 const isRejectAction = (action) => {
-  return action.type.startsWith('auth/api') && action.type.endsWith('/rejected')
+  return action.type.startsWith('auth/') && action.type.endsWith('/rejected')
 }
 
 const initialState = {
@@ -76,7 +76,7 @@ const authReducer = createReducer(initialState, (builder) => {
    * filter and add all pending action API
    */
   builder.addMatcher(isPendingAction, (state, action) => {
-    if (state.status === IDLE) {
+    if (state.status !== PENDING) {
       return { ...state, status: PENDING, currentRequestId: action.meta.requestId }
     }
   })
