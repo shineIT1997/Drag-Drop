@@ -11,6 +11,8 @@ import '_utils/axios/interceptors'
 
 import { isArray, isFunction, isString } from 'lodash'
 import store from '_store'
+import { unwrapResult } from '@reduxjs/toolkit'
+import notify from '../notify'
 
 const dispatch = store.dispatch
 
@@ -46,5 +48,20 @@ export const cancelApis = (apiActions) => {
   apiActions.forEach(actionFunc => {
     return checkIsAction(actionFunc) && dispatch(actionFunc).abort()
   })
+}
+
+export const callApi = async (action) => {
+  try {
+    const data = await dispatch(action())
+    const resp = unwrapResult(data)
+    return resp
+  } catch (error) {
+    notify({
+      type: 'error',
+      message: error.msg
+    })
+
+    return Promise.reject(error)
+  }
 }
 

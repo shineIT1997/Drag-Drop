@@ -3,18 +3,42 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "_src/*": ["src/*"],
-      "_store/*": ["src/store/*"],
-      "_modulus/*": ["src/modulus/*"],
-      "_apis/*": ["src/apis/*"],
-      "_utils/*": ["src/utils/*"],
-      "_static/*": ["public/static/*"],
-      "_components/*": ["src/components/*"],
-      "_router/*": ["src/router/*"],
-      "_layout/*": ["src/layout/*"],
-      "_constants/*": ["src/constants/*"],
-      "_styles/*": ["src/styles/*"],
+      "_src/*": [
+        "src/*"
+      ],
+      "_store/*": [
+        "src/store/*"
+      ],
+      "_modulus/*": [
+        "src/modulus/*"
+      ],
+      "_apis/*": [
+        "src/apis/*"
+      ],
+      "_utils/*": [
+        "src/utils/*"
+      ],
+      "_static/*": [
+        "public/static/*"
+      ],
+      "_components/*": [
+        "src/components/*"
+      ],
+      "_router/*": [
+        "src/router/*"
+      ],
+      "_layout/*": [
+        "src/layout/*"
+      ],
+      "_constants/*": [
+        "src/constants/*"
+      ],
+      "_styles/*": [
+        "src/styles/*"
+      ],
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

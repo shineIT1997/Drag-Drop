@@ -1,10 +1,11 @@
+import { unwrapResult } from '@reduxjs/toolkit'
 import React, { useCallback, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { login } from '_src/store/actions/auth'
+import { callApi } from '_src/utils/axios'
+import notify from '_src/utils/notify'
 
 const Home = (props) => {
-  const dispatch = useDispatch()
-
   const [ form, setForm ] = useState({
     email: '',
     password: ''
@@ -15,15 +16,23 @@ const Home = (props) => {
     props.refreshToken
   )
 
-  const handleLogin = useCallback(
-    async () => {
-      await dispatch(login(form))
-    },
-    [ dispatch ]
-  )
+  const handleLogin = async () => {
+    try {
+      const data = await callApi(() => login(form))
+
+      console.log(data)
+    } catch (error) {
+      // notify({
+      //   type: 'error',
+      //   message: error.msg
+      // })
+      console.log(error)
+    }
+  }
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
+
     setForm(prev => ({ ...prev, [name]: value }))
   }
 

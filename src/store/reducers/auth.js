@@ -50,6 +50,7 @@ const isRejectAction = (action) => {
 
 const initialState = {
   status: IDLE,
+  error: {},
   isAlreadyFetchingAccessToken: false,
   requestQueue: [],
   accessToken: '',
@@ -95,9 +96,12 @@ const authReducer = createReducer(initialState, (builder) => {
    * filter and add all reject action API
    */
   builder.addMatcher(isRejectAction, (state, action) => {
+    console.log('action.error : ', action)
     const { requestId } = action.meta
     if (state.status === PENDING && state.currentRequestId === requestId) {
-      return { ...state, ...action.payload, status: REJECTED, currentRequestId: undefined }
+      state.error = action.error
+      state.status = REJECTED
+      state.currentRequestId = undefined
     }
   })
 })

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const login = createAsyncThunk(
   'auth/login',
-  async (payload, { signal, getState, requestId }) => {
+  async (payload, { signal, getState, requestId, rejectWithValue }) => {
     const { currentRequestId, status } = getState()?.auth
 
     if (status !== 'pending' || requestId !== currentRequestId) {
@@ -14,16 +14,19 @@ const login = createAsyncThunk(
     signal.addEventListener('abort', () => {
       source.cancel()
     })
+    try {
+      const { data } = await axios.post('/api/auth/register', {
+        ...payload
+      }, {
+        cancelToken: source.token
+      })
 
-    const { data } = await axios.post('/api/auth/register', {
-      payload: payload
-    }, {
-      cancelToken: source.token
-    })
-
-    return {
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token
+      return {
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token
+      }
+    } catch (error) {
+      return rejectWithValue(error)
     }
   }
 )
