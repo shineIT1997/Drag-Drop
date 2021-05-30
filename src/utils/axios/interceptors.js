@@ -18,19 +18,20 @@ axios.interceptors.request.use((request) => {
 })
 
 axios.interceptors.response.use((response) => {
-  console.log('response : ', response)
   return response
 }, (error) => {
-  const { config, response: { status } } = error
+  const { config = {}, response = { } } = error
+  const { statusCode } = response
+
   const originalRequest = config
 
-  if (status === 401) {
+  if (statusCode === 401) {
     return handleRefreshToken(originalRequest)
   }
 
   const convertError = {
-    status: error?.response?.status,
-    msg: error?.response?.data?.msg
+    statusCode: error?.response?.statusCode,
+    message: error?.response?.data?.message
   }
 
   return Promise.reject(convertError)

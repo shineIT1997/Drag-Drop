@@ -1,12 +1,17 @@
 import { unwrapResult } from '@reduxjs/toolkit'
 import React, { useCallback, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { login } from '_src/store/actions/auth'
+import { login, register, test } from '_src/store/actions/auth'
+
 import { callApi } from '_src/utils/axios'
 import notify from '_src/utils/notify'
 
 const Home = (props) => {
-  const [ form, setForm ] = useState({
+  const [ loginForm, setLoginForm ] = useState({
+    email: '',
+    password: ''
+  })
+  const [ registerForm, setRegisterForm ] = useState({
     email: '',
     password: ''
   })
@@ -16,9 +21,9 @@ const Home = (props) => {
     props.refreshToken
   )
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const data = await callApi(() => login(form))
+      const data = await callApi(() => register(registerForm))
 
       console.log(data)
     } catch (error) {
@@ -30,29 +35,71 @@ const Home = (props) => {
     }
   }
 
-  const handleOnChange = (e) => {
+  const handleLogin = async () => {
+    try {
+      const data = await callApi(() => login(loginForm))
+
+      console.log(data)
+    } catch (error) {
+      // notify({
+      //   type: 'error',
+      //   message: error.msg
+      // })
+      console.log(error)
+    }
+  }
+
+  const handleOnChangeLogin = (e) => {
     const { name, value } = e.target
 
-    setForm(prev => ({ ...prev, [name]: value }))
+    setLoginForm(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleOnChangeRegister = (e) => {
+    const { name, value } = e.target
+
+    setRegisterForm(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleTest = async () => {
+    const data = await callApi(() => test())
   }
 
   return (
     <div>
-      <p>Hello World of React and Webpack!</p>
+      <p>Hello World of React and Webpack! Register</p>
       Email:
       <input
         type="text"
         name="email"
-        onChange={handleOnChange}
-        value={form.email} />
+        onChange={handleOnChangeRegister}
+        value={registerForm.email} />
       Password:
       <input
         type="text"
         name="password"
-        onChange={handleOnChange}
-        value={form.password} />
+        onChange={handleOnChangeRegister}
+        value={registerForm.password} />
+
+      <button onClick={handleRegister}>Register</button>
+      <br />
+      <p>------------------------</p>
+
+      login:
+      <input
+        type="text"
+        name="email"
+        onChange={handleOnChangeLogin}
+        value={loginForm.email} />
+      Password:
+      <input
+        type="text"
+        name="password"
+        onChange={handleOnChangeLogin}
+        value={loginForm.password} />
 
       <button onClick={handleLogin}>Login</button>
+      <button onClick={handleTest}>test</button>
     </div>
   )
 }

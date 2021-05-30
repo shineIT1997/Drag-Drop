@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   axios.defaults.baseURL = process.env.REACT_APP_PROXY
 }
+
 /**
  *
  * @param {Array Function or Function} apiActions
@@ -58,7 +59,7 @@ export const callApi = async (action) => {
   } catch (error) {
     notify({
       type: 'error',
-      message: error.msg
+      message: error?.message
     })
 
     return Promise.reject(error)
