@@ -8,10 +8,10 @@ import AppLoading from '_src/components/Loading/App'
 
 import store from '_store'
 import 'react-toastify/dist/ReactToastify.css'
-// minified version is also included
-// import 'react-toastify/dist/ReactToastify.min.css';
 
 import '_styles/notify.scss'
+// minified version is also included
+// import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = (props) => {
   const renderLoading = useMemo(() => props.loading && <AppLoading/>, [ props.loading ])
