@@ -25,6 +25,8 @@ if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = process.env.REACT_APP_PROXY
 }
 
+axios.defaults.withCredentials = true
+
 /**
  *
  * @param {Array Function or Function} apiActions

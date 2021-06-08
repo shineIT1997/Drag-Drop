@@ -6,14 +6,14 @@ import notify from '_src/utils/notify'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { isArray } from 'lodash'
 
-const useMultipleAxios = ({ arrayAsyncFunction, isResp, immediate, delay }) => {
+const useMultipleAxios = ({ arrayActionsFunc, isResp, immediate, delay }) => {
   const dispatch = useDispatch()
   const [ result, setResult ] = useState([])
   const timeout = useRef(null)
   const cancel = useRef(null)
 
   useEffect(() => {
-    if (!isArray(arrayAsyncFunction)) return
+    if (!isArray(arrayActionsFunc)) return
 
     execute()
 
@@ -25,7 +25,7 @@ const useMultipleAxios = ({ arrayAsyncFunction, isResp, immediate, delay }) => {
 
   const handleCallActions = async () => {
     try {
-      cancel.current = arrayAsyncFunction.map(el => {
+      cancel.current = arrayActionsFunc.map(el => {
         const { asyncAction, params } = el
         return dispatch(asyncAction(params))
       })
@@ -85,7 +85,7 @@ const useMultipleAxios = ({ arrayAsyncFunction, isResp, immediate, delay }) => {
 }
 
 useMultipleAxios.propTypes = {
-  arrayAsyncFunction: PropTypes.array.isRequired,
+  arrayActionsFunc: PropTypes.array.isRequired,
   params: PropTypes.object,
   isResp: PropTypes.bool,
   immediate: PropTypes.bool,
