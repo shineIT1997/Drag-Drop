@@ -89,6 +89,20 @@ module.exports = {
       },
 
       {
+        test: /\.(woff(2)?|ttf|eot|otf)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: './font/[hash].[ext]',
+              mimetype: 'application/font-woff'
+            }
+          }
+        ]
+      },
+
+      {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,

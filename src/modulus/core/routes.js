@@ -1,4 +1,5 @@
 import Home from '_src/modulus/core/components/Home'
+import StyleGuide from './components/StyleGuide'
 
 export default [
   {
@@ -7,5 +8,13 @@ export default [
     exact: true,
     auth: false,
     component: Home
+  },
+
+  {
+    path: '/styleguide',
+    name: 'styleguide',
+    exact: true,
+    auth: false,
+    component: StyleGuide
   }
 ]

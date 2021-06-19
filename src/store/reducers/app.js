@@ -6,7 +6,7 @@ import { toggleLoading, increment, toggleTheme } from '_store/actions/app'
 const initialState = {
   value: 0,
   loading: false,
-  theme: DARK
+  theme: LIGHT
 }
 
 const appReducer = createReducer(initialState, (builder) => {

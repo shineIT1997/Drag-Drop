@@ -4,17 +4,20 @@ import { ToastContainer } from 'react-toastify'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles'
 
-import Main from '_layout/main'
+import Main from '_src/layout/Main'
+import Header from '_layout/Header'
 import AppLoading from '_src/components/Loading/App'
 
 import store from '_store'
 import 'react-toastify/dist/ReactToastify.css'
 
-import '_styles/notify.scss'
+import '_styles/app.scss'
 import { theme as DARK } from './styles/theme/dark'
 import { theme as LIGHT } from './styles/theme/light'
 // minified version is also included
 // import 'react-toastify/dist/ReactToastify.min.css';
+
+console.log('LIGHT : ', LIGHT)
 
 const THEME_TYPE = {
   dark: DARK,
@@ -24,11 +27,15 @@ const THEME_TYPE = {
 const App = (props) => {
   const renderLoading = useMemo(() => props.loading && <AppLoading />, [ props.loading ])
 
+  console.log('THEME_TYPE[props.theme] : ', THEME_TYPE[props.theme])
+
   return (
     <ThemeProvider theme={THEME_TYPE[props.theme]}>
       <div
         id="app"
         className="app">
+        <Header />
+
         <Main />
 
         {renderLoading}
@@ -42,7 +49,7 @@ const App = (props) => {
           pauseOnHover
         />
       </div>
-    </ThemeProvider>
+    </ThemeProvider >
 
   )
 }
