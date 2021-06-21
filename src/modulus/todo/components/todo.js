@@ -14,7 +14,7 @@ const Todo = props => {
   // useSingleAxios({ asyncFunction: fetchUser, delay: 2000 })
 
   const todo = useMultipleAxios({
-    arrayAsyncFunction: [
+    arrayActionsFunc: [
       {
         asyncAction: fetchTodos
       },

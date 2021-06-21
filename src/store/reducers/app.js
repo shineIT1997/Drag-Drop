@@ -1,10 +1,12 @@
 
 import { createReducer } from '@reduxjs/toolkit'
-import { toggleLoading, increment } from '_store/actions/app'
+import { LIGHT, DARK } from '_src/constants'
+import { toggleLoading, increment, toggleTheme } from '_store/actions/app'
 
 const initialState = {
   value: 0,
-  loading: false
+  loading: false,
+  theme: LIGHT
 }
 
 const appReducer = createReducer(initialState, (builder) => {
@@ -15,6 +17,10 @@ const appReducer = createReducer(initialState, (builder) => {
 
     .addCase(increment, (state, action) => {
       state.value += action.payload
+    })
+
+    .addCase(toggleTheme, (state, action) => {
+      state.theme = action.payload
     })
 })
 

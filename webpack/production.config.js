@@ -10,6 +10,8 @@ process.env.NODE_ENV = 'production'
 const path = require('path')
 const paths = require('../config/paths')
 const CopyPlugin = require('copy-webpack-plugin')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const commonConfig = require('./common.config')
 const isWsl = require('is-wsl')
 const safePostCssParser = require('postcss-safe-parser')
@@ -19,6 +21,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 module.exports = merge(commonConfig, {
   // Recommended by https://webpack.js.org/configuration/mode/
   mode: 'production',
+  bail: true,
 
   // Recommended by https://webpack.js.org/configuration/devtool/
   devtool: false,
@@ -36,15 +39,14 @@ module.exports = merge(commonConfig, {
   output: {
     // The build folder.
     path: paths.appBuild,
-    // There will be one main bundle, and one file per asynchronous chunk.
-    // In development, it does not produce real files.
-    filename: 'static/js/[name].[contenthash:8].js',
+    // This does not produce a real file. It's just the virtual path that is
+    // served by WebpackDevServer in development. This is the JS bundle
+    // containing code from all our entry points, and the Webpack runtime.
+    filename: 'static/js/[name].[hash].js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
-    // webpack uses `publicPath` to determine where the app is being served from.
-    // It requires a trailing slash, or the file assets will get an incorrect path.
-    // We inferred the "public path" (such as / or /my-project) from homepage.
-    publicPath: paths.publicUrlOrPath,
+    chunkFilename: 'static/js/[name].[hash].js',
+    // This is the URL that app is served from. We use "/" in development.
+    publicPath: '/',
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path
@@ -52,14 +54,40 @@ module.exports = merge(commonConfig, {
         .replace(/\\/g, '/')
   },
 
-  plugins: [],
+  plugins: [
+    // Generates an `index.html` file with the <script> injected.
+    // new HtmlWebpackPlugin(
+    //   Object.assign(
+    //     {},
+    //     {
+    //       inject: true,
+    //       template: paths.appHtml
+    //     },
+    //     {
+    //       minify: {
+    //         removeComments: true,
+    //         collapseWhitespace: true,
+    //         removeRedundantAttributes: true,
+    //         useShortDoctype: true,
+    //         removeEmptyAttributes: true,
+    //         removeStyleLinkTypeAttributes: true,
+    //         keepClosingSlash: true,
+    //         minifyJS: true,
+    //         minifyCSS: true,
+    //         minifyURLs: true
+    //       }
+    //     }
+
+    //   )
+    // )
+  ],
 
   optimization: {
+    nodeEnv: 'production',
     minimize: true,
     minimizer: [
     // This is only used in production mode
       (compiler) => {
-        const TerserPlugin = require('terser-webpack-plugin')
         new TerserPlugin({
           terserOptions: {
             parse: {

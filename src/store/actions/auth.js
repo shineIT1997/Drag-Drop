@@ -1,6 +1,73 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+/**
+ * register account
+ */
+const register = createAsyncThunk(
+  'auth/register',
+  async (payload, { signal, getState, requestId, rejectWithValue }) => {
+    const { currentRequestId, status } = getState()?.auth
+
+    if (status !== 'pending' || requestId !== currentRequestId) {
+      return
+    }
+
+    const source = axios.CancelToken.source()
+    signal.addEventListener('abort', () => {
+      source.cancel()
+    })
+    try {
+      const { data } = await axios.post('/api/auth/register', {
+        ...payload
+      }, {
+        cancelToken: source.token
+      })
+
+      return {
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token
+      }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+const test = createAsyncThunk(
+  'auth/test',
+  async (payload, { signal, getState, requestId, rejectWithValue }) => {
+    const { currentRequestId, status } = getState()?.auth
+
+    if (status !== 'pending' || requestId !== currentRequestId) {
+      return
+    }
+
+    const source = axios.CancelToken.source()
+    signal.addEventListener('abort', () => {
+      source.cancel()
+    })
+    try {
+      const { data } = await axios.post('/api/auth/test', {
+        ...payload
+      }, {
+        cancelToken: source.token
+      })
+
+      return {
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token
+      }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+/**
+ * login account
+ * @param {Object} payload
+ */
 const login = createAsyncThunk(
   'auth/login',
   async (payload, { signal, getState, requestId, rejectWithValue }) => {
@@ -15,7 +82,7 @@ const login = createAsyncThunk(
       source.cancel()
     })
     try {
-      const { data } = await axios.post('/api/auth/register', {
+      const { data } = await axios.post('/api/auth/login', {
         ...payload
       }, {
         cancelToken: source.token
@@ -65,5 +132,7 @@ export {
   createAcessToken,
   toggleFetchingAccessToken,
   addSingleRequestsToQueue,
-  login
+  login,
+  register,
+  test
 }

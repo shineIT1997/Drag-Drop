@@ -11,34 +11,25 @@ import { handleRefreshToken } from './auth-interceptor'
 /** @todo :  */
 
 axios.interceptors.request.use((request) => {
-  request.headers['Access-Control-Allow-Origin'] = '*'
-  request.headers['Access-Control-Allow-Headers'] = 'Content-Type, x-requested-with'
-
   return request
 })
 
-axios.interceptors.response.use(
-  (response) => {
-    console.log('response : ', response)
+axios.interceptors.response.use((response) => {
+  return response
+}, (error) => {
+  const { config = {}, response = { } } = error
+  const { statusCode } = response
 
-    return response
-  },
+  const originalRequest = config
 
-  (error) => {
-    const { config, response: { status } } = error
-    const originalRequest = config
+  if (statusCode === 401) {
+    return handleRefreshToken(originalRequest)
+  }
 
-    /**
-     * handle access token exp
-     */
-    if (status === 401) {
-      return handleRefreshToken(originalRequest)
-    }
+  const convertError = {
+    statusCode: error?.response?.statusCode,
+    message: error?.response?.data?.message
+  }
 
-    const convertError = {
-      status: error?.response?.status,
-      msg: error?.response?.data?.msg
-    }
-
-    return Promise.reject(convertError)
-  })
+  return Promise.reject(convertError)
+})
