@@ -17,21 +17,28 @@ axios.interceptors.request.use((request) => {
   return request
 })
 
-axios.interceptors.response.use((response) => {
-  console.log('response : ', response)
-  return response
-}, (error) => {
-  const { config, response: { status } } = error
-  const originalRequest = config
+axios.interceptors.response.use(
+  (response) => {
+    console.log('response : ', response)
 
-  if (status === 401) {
-    return handleRefreshToken(originalRequest)
-  }
+    return response
+  },
 
-  const convertError = {
-    status: error?.response?.status,
-    msg: error?.response?.data?.msg
-  }
+  (error) => {
+    const { config, response: { status } } = error
+    const originalRequest = config
 
-  return Promise.reject(convertError)
-})
+    /**
+     * handle access token exp
+     */
+    if (status === 401) {
+      return handleRefreshToken(originalRequest)
+    }
+
+    const convertError = {
+      status: error?.response?.status,
+      msg: error?.response?.data?.msg
+    }
+
+    return Promise.reject(convertError)
+  })

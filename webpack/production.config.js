@@ -132,12 +132,12 @@ module.exports = merge(commonConfig, {
             from: path.resolve(paths.appPublic, 'favicon.ico'),
             to: path.resolve(paths.appBuild, 'favicon.ico'),
             toType: 'file'
+          },
+          {
+            from: path.resolve(paths.appPublic, 'static'),
+            to: path.resolve(paths.appBuild, 'static'),
+            toType: 'dir'
           }
-          // {
-          //   from: path.resolve(paths.appPublic, 'static'),
-          //   to: path.resolve(paths.appBuild, 'static'),
-          //   toType: 'dir'
-          // }
         ]
       })
     ],

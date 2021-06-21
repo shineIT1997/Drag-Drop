@@ -16,6 +16,8 @@ import notify from '../notify'
 
 const dispatch = store.dispatch
 
+console.log(process.env)
+
 /**
  * axios baseURL
  */

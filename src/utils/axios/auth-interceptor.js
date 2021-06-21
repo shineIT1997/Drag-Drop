@@ -14,9 +14,11 @@ import {
   addSingleRequestsToQueue
 } from '_src/store/actions/auth'
 
-const {
-  isAlreadyFetchingAccessToken
-} = store.getState().auth
+// const {
+//   isAlreadyFetchingAccessToken
+// } = store.getState().auth
+
+const isAlreadyFetchingAccessToken = false
 
 const dispatch = store.dispatch
 
