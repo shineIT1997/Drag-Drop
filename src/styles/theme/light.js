@@ -52,10 +52,10 @@ export const theme = createMuiTheme({
     primary: {
       main: '#0073C4',
       dark: '#005E9E',
-      50: '#cce9ff',
-      100: '#addbff',
-      200: '#62aae3',
-      300: '#4495d4',
+      50: '#E8F5FF',
+      100: '#cce9ff',
+      200: '#addbff',
+      300: '#45A4E6',
       400: '#2784cc',
       500: '#0073C4',
       600: '#0066ab',
@@ -63,31 +63,35 @@ export const theme = createMuiTheme({
       800: '#004f85',
       900: '#003961'
     },
-    // secondary: {
-    //   // main: '#3F3BED',
-    //   // dark: '#000fb9',
-    //   // 50: '#ede7fd',
-    //   // 100: '#cfc5f9',
-    //   // 200: '#ad9ef6',
-    //   // 300: '#8876f3',
-    //   // 400: '#6858f1',
-    //   // 500: '#3F3BED',
-    //   // 600: '#2a37e6',
-    //   // 700: '#002fde',
-    //   // 800: '#002ad7',
-    //   // 900: '#000fb9'
-    // },
+    secondary: {
+      main: '#42526E',
+      dark: '#172B4D',
+      100: '#FFFFFF',
+      200: '#FAFBFC',
+      300: '#F5F6F7',
+      400: '#E6E8EB',
+      500: '#D3D7DE',
+      600: '#AAB2BF',
+      700: '#6B778C',
+      800: '#42526E',
+      900: '#172B4D'
+    },
     gray: {
-      main: '#222222',
+      main: '#212121',
+      50: '#fafafa',
       100: '#f5f5f5',
-      200: '#efefef',
-      300: '#CECECE',
-      400: '#9F9F9F',
-      500: '#9f9f9f',
-      600: '#767676',
-      700: '#626262',
-      800: '#333333',
-      900: '#222222'
+      200: '#eeeeee',
+      300: '#D3D7DE',
+      400: '#bdbdbd',
+      500: '#9e9e9e',
+      600: '#757575',
+      700: '#616161',
+      800: '#424242',
+      900: '#212121'
+    },
+    background: {
+      paper: '#fff',
+      default: '#fafafa'
     },
     color: {
       error: '#EB0000',
@@ -163,7 +167,7 @@ export const theme = createMuiTheme({
     subtitle2: {
       fontSize: 14,
       fontWeight: 600,
-      lineHeight: '22px',
+      lineHeight: '20px',
       letterSpacing: 0.1,
       fontFamily: primaryFont
     },

@@ -14,8 +14,18 @@
       "jsx": true
     }
   },
+  "settings": {
+    "polyfills": [
+      "URL",
+      "fetch",
+      "Promise",
+      "FormData",
+      "location.hostname"
+    ]
+  },
   "env": {
     "browser": true,
+    "jest": true,
     "es6": true
   },
   "rules": {

@@ -27,6 +27,7 @@
   "dependencies": {
     "@manaflair/redux-batch": "^1.0.0",
     "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "express": "^4.17.1",
@@ -80,14 +81,8 @@
     "webpack": "^5.36.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
-<<<<<<< HEAD
-    "webpack-glob-loader": "^1.0.0"
-  }
-}
-=======
     "webpack-glob-loader": "^1.0.0",
     "webpack-manifest-plugin": "^3.1.1"
   },
   "proxy": "http://127.0.0.1:3000/"
 }
->>>>>>> c54cc7b8a057d9f269db5d05e10a23d12c786a9f
