@@ -106,6 +106,7 @@
         "maximum": 1
       }
     ],
+    // "array-callback-return": "off",
     "no-prototype-builtins": "off",
     "no-unused-vars": "warn",
     "react/jsx-first-prop-new-line": [
