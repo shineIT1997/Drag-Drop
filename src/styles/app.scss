@@ -5,6 +5,39 @@ html, body {
   padding: 0;
   color: #000;
   box-sizing: border-box;
+  padding: 30px;
   scroll-behavior: smooth;
   font-family: 'Roboto', sans-serif;
+}
+
+
+.grid {
+  margin: 24px;
+  padding: 0;
+  list-style: none;
+  user-select: none;
+  display: grid;
+  grid-gap: 1px;
+}
+
+.cell {
+  border: solid 1px black;
+  padding: 35px;
+  background-color: #fff;
+  height: 50px;
+  width: 50px;
+  overflow: auto;
+  position: relative;
+}
+
+[draggable="true"] {
+  cursor: move;
+}
+
+.to {
+  transform: scale(1.025);
+  transition: all 0.5s;
+  border: 1px dashed #000;
+  background-color: #fff;
+  padding:40px;
 }

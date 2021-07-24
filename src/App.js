@@ -1,74 +1,82 @@
-import React, { useMemo } from 'react'
-import { connect, Provider } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
+
+import React, { useState } from 'react'
+
 import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider } from '@material-ui/core/styles'
-
-import Main from '_src/layout/Main'
-import Header from '_layout/Header'
-import AppLoading from '_src/components/Loading/App'
-
-import store from '_store'
-import 'react-toastify/dist/ReactToastify.css'
 
 import '_styles/app.scss'
-import { theme as DARK } from './styles/theme/dark'
-import { theme as LIGHT } from './styles/theme/light'
-// minified version is also included
-// import 'react-toastify/dist/ReactToastify.min.css';
 
-console.log('LIGHT : ', LIGHT)
+const App = () => {
+  const [ input, setInput ] = useState(0)
+  const [ items, setItems ] = useState([])
+  const [ from, setFrom ] = useState(null)
+  const [ to, setTo ] = useState(null)
 
-const THEME_TYPE = {
-  dark: DARK,
-  light: LIGHT
-}
+  const MyWidget = ({ name }) => <div>{name}</div>
 
-const App = (props) => {
-  const renderLoading = useMemo(() => props.loading && <AppLoading />, [ props.loading ])
+  const handleSubmit = () => {
+    const boxes = []
+    let i = 0
 
-  console.log('THEME_TYPE[props.theme] : ', THEME_TYPE[props.theme])
+    while (i < input * input) {
+      boxes.push({ id: 'cell-1', name: i + 1, type: 'cell' })
+      i++
+    }
+
+    setItems(boxes)
+  }
+
+  const handleOnChange = (e) => {
+    setInput(parseInt(e.target.value))
+  }
 
   return (
-    <ThemeProvider theme={THEME_TYPE[props.theme]}>
+
+    <div
+      id="app"
+      className="app">
+
+      <input
+        onChange={handleOnChange}
+        type="number"
+        value={input} />
+      <button onClick={handleSubmit}>Submit</button>
+
       <div
-        id="app"
-        className="app">
-        <Header />
-
-        <Main />
-
-        {renderLoading}
-
-        <ToastContainer
-          autoClose={false}
-          className='snackbar-container'
-          toastClassName='snackbar-item'
-          bodyClassName='snackbar-body'
-          pauseOnFocusLoss
-          pauseOnHover
-        />
+        className="grid"
+        style={{
+          width: input * 30 || 0,
+          gridTemplateColumns: `repeat(${Math.sqrt(items.length)}, auto)`
+        }}>
+        {items.map((item, i) => (
+          <div
+            className={`cell ${item.type}-${i}${i === to && to !== from ? ' to' : ''}`}
+            data-index={i}
+            key={item.name}
+            draggable="true"
+            onDragStart={e => setFrom(Number(e.currentTarget.dataset.index))}
+            onDragOver={e => {
+              e.preventDefault()
+              setTo(Number(e.currentTarget.dataset.index))
+            }}
+            onDragEnd={() => {
+              items.splice(to, 0, items.splice(from, 1)[0])
+              setItems(items)
+              setFrom(null)
+              setTo(null)
+            }}
+          >
+            <MyWidget name={item.name} />
+          </div>
+        ))}
       </div>
-    </ThemeProvider >
+
+    </div>
 
   )
 }
 
-const mapStateToProps = state => {
-  return ({
-    loading: state.app.loading,
-    theme: state.app.theme
-  })
-}
-
-const AppWithStore = connect(
-  mapStateToProps,
-  null
-)(App)
-
 export default () =>
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppWithStore/>
-    </BrowserRouter>
-  </Provider>
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>
+
