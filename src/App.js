@@ -29,6 +29,18 @@ const App = () => {
     setInput(parseInt(e.target.value))
   }
 
+  const handleDragEnd = () => {
+    const cloneItem = [ ...items ]
+    const itemFlag = cloneItem[to]
+
+    cloneItem[to] = cloneItem[from]
+    cloneItem[from] = itemFlag
+
+    setItems(cloneItem)
+    setFrom(null)
+    setTo(null)
+  }
+
   return (
 
     <div
@@ -58,12 +70,7 @@ const App = () => {
               e.preventDefault()
               setTo(Number(e.currentTarget.dataset.index))
             }}
-            onDragEnd={() => {
-              items.splice(to, 0, items.splice(from, 1)[0])
-              setItems(items)
-              setFrom(null)
-              setTo(null)
-            }}
+            onDragEnd={handleDragEnd}
           >
             <MyWidget name={item.name} />
           </div>
